@@ -11,7 +11,7 @@ on:
       - 'master'
     tags:
       - 'v*'
-  # Runs on PRS targeting any branch
+  # Runs on PR targeting any branch
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -34,7 +34,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        go-version: [ 1.22.0 ]
+        go-version: [ 1.22.1 ]
         target: [ "ci-all", ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -60,7 +60,7 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
-      # Checkout code: https://github.com/actions/checkout/releases/tag/v4.1.1
+      # Checkout code: https://github.com/actions/checkout/releases/tag/v4.1.4
       - name: Check out main code into the Go module directory
         uses: actions/checkout@v4.1.1
         with:

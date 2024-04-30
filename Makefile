@@ -10,6 +10,8 @@ XTEM_CADDY_NAME=xtemplate-caddy_$(BASE_OS_NAME)_$(BASE_OS_ARCH)
 ifeq ($(OS_NAME),windows)
 	XTEM_CADDY_NAME=xtemplate-caddy_$(BASE_OS_NAME)_$(BASE_OS_ARCH).exe
 endif
+XTEM_CADDY_BIN=$(BIN_ROOT)/$(XTEM_CADDY_NAME)
+XTEM_CADDYFILE=$(PWD)/example/Caddyfile
 
 
 print:
@@ -17,6 +19,8 @@ print:
 	@echo "BASE_OS_NAME:        $(BASE_OS_NAME)"
 	@echo "BASE_OS_ARCH:        $(BASE_OS_ARCH)"
 	@echo "XTEM_CADDY_NAME:     $(XTEM_CADDY_NAME)"
+	@echo "XTEM_CADDY_BIN:      $(XTEM_CADDY_BIN)"
+	@echo "XTEM_CADDYFILE:      $(XTEM_CADDYFILE)"
 	
 # for local only.
 all: print xtemcaddy-bin
@@ -30,13 +34,15 @@ xtemcaddy-bin-cgo:
 	# build with CGO in order to use the sqlite3 db driver and enable the sqlite_json build tag to get json funcs
 	cd $(PWD)/example && GOFLAGS='-tags="sqlite_json"' CGO_ENABLED=1 go build -o $(BIN_ROOT)/$(XTEM_CADDY_NAME) .
 xtemcaddy-run:
-	cd $(PWD)/example && $(XTEM_CADDY_NAME) run --config CaddyFile
+	cd $(PWD)/example && $(XTEM_CADDY_NAME) run --config Caddyfile
 	# http://localhost:8080
 	# https://localhost:8080
 xtemcaddy-test: xtemcaddy-start xtemcaddy-stop
 xtemcaddy-start:
-	cd $(PWD)/example && $(XTEM_CADDY_NAME) start --config CaddyFile
+	#$(XTEM_CADDY_BIN) start --config $(XTEM_CADDYFILE)
+	cd $(PWD)/example && $(XTEM_CADDY_BIN) start --config Caddyfile
 	# http://localhost:8080
 	# https://localhost:8080
 xtemcaddy-stop:
-	cd $(PWD)/example && $(XTEM_CADDY_NAME) stop --config CaddyFile
+	#$(XTEM_CADDY_BIN) stop --config $(XTEM_CADDYFILE)
+	cd $(PWD)/example && $(XTEM_CADDY_BIN) stop --config Caddyfile

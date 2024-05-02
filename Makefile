@@ -39,10 +39,10 @@ xtemcaddy-run:
 	# https://localhost:8080
 xtemcaddy-test: xtemcaddy-start xtemcaddy-stop
 xtemcaddy-start:
-	#$(XTEM_CADDY_BIN) start --config $(XTEM_CADDYFILE)
-	cd $(PWD)/example && $(XTEM_CADDY_BIN) start --config Caddyfile
+	$(XTEM_CADDY_BIN) start --config $(XTEM_CADDYFILE)
+	#cd $(PWD)/example && $(XTEM_CADDY_BIN) start --config Caddyfile
 	# http://localhost:8080
 	# https://localhost:8080
 xtemcaddy-stop:
-	#$(XTEM_CADDY_BIN) stop --config $(XTEM_CADDYFILE)
-	cd $(PWD)/example && $(XTEM_CADDY_BIN) stop --config Caddyfile
+	$(XTEM_CADDY_BIN) stop --config $(XTEM_CADDYFILE)
+	#cd $(PWD)/example && $(XTEM_CADDY_BIN) stop --config Caddyfile
